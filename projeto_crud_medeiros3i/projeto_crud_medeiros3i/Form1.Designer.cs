@@ -159,6 +159,7 @@
             this.btn_alterar.TabIndex = 13;
             this.btn_alterar.Text = "Alterar";
             this.btn_alterar.UseVisualStyleBackColor = true;
+            this.btn_alterar.Click += new System.EventHandler(this.btn_alterar_Click);
             // 
             // btn_excluir
             // 
@@ -168,6 +169,7 @@
             this.btn_excluir.TabIndex = 14;
             this.btn_excluir.Text = "Excluir";
             this.btn_excluir.UseVisualStyleBackColor = true;
+            this.btn_excluir.Click += new System.EventHandler(this.btn_excluir_Click);
             // 
             // btn_cancelar
             // 
@@ -177,6 +179,7 @@
             this.btn_cancelar.TabIndex = 15;
             this.btn_cancelar.Text = "Cancelar";
             this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
             // Form1
             // 

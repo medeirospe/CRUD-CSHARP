@@ -107,7 +107,7 @@ namespace projeto_crud_medeiros3i
                     Conectar = new NpgsqlConnection(strCon);
                     Conectar.Open();
 
-                    strSQL = "SELECT * FROM clientes WHERE cpf = '" + mkt_cpf + "'";
+                    strSQL = "SELECT * FROM clientes WHERE cpf = '" + mkt_cpf.Text + "'";
                     MessageBox.Show(strSQL);
 
                     ComandoSQL = new NpgsqlCommand(strSQL, Conectar);
@@ -153,12 +153,116 @@ namespace projeto_crud_medeiros3i
                 {
                     MessageBox.Show("Preencha Corretamente o campo CPF!", "Sistema Informa");
                 }
+                mkt_cpf.Enabled = true;
                 mkt_cpf.Focus();
             }
             catch (Exception erro)
             {
                 MessageBox.Show(erro.Message);
             }
+
+        }
+        private void btn_alterar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DialogResult.Yes == MessageBox.Show("Confirmar alteração do registro?", "Sistema informa", MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                {
+                    Conectar = new NpgsqlConnection(strCon);
+                    Conectar.Open();
+
+                    strSQL = "UPDATE clientes SET nome = '" + txt_nome.Text + "', " + 
+                        "telefone = '" + txt_telefone.Text + "', " + 
+                        "email = '" + txt_email.Text + "', " + 
+                        "dn = TO_DATE ('" + mkt_dn.Text + "', 'DD/MM/YYYY')" +
+                        "WHERE cpf = '" + mkt_cpf.Text + "' ";
+
+                    MessageBox.Show(strSQL);
+
+                    ComandoSQL = new NpgsqlCommand(strSQL, Conectar);
+
+                    ComandoSQL.ExecuteNonQuery();
+                    MessageBox.Show("Registro alterado com sucesso!", "Sistema Informa");
+
+                    LimparObjetos();
+                    btn_alterar.Enabled = false;
+                    btn_excluir.Enabled = false;
+
+                    btn_inserir.Enabled = true;
+                    btn_consultar.Enabled = true;
+
+                    mkt_cpf.Focus();
+
+                    Conectar.Close();
+                }
+                else
+                {
+                    txt_nome.Focus();
+                }
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show(erro.Message);
+            }
+        }
+
+        private void btn_excluir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DialogResult.Yes == MessageBox.Show("Confirmar Exclusão Registro?", "Sistema Informa", 
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                {
+                    Conectar = new NpgsqlConnection(strCon);
+                    Conectar.Open();
+
+                    strSQL = "DELETE FROM clientes WHERE cpf = '" + mkt_cpf.Text + "' ";
+                    MessageBox.Show(strSQL);
+
+                    ComandoSQL = new NpgsqlCommand(strSQL, Conectar);
+                    ComandoSQL.ExecuteNonQuery();
+                    MessageBox.Show("Registro Excluido com Sucesso!", "Sistema Informa");
+
+                }
+                else
+                {
+                    MessageBox.Show("Operação Cancelada...", "Sistema Informa");
+                    
+                }
+                LimparObjetos();
+
+                btn_alterar.Enabled = false;
+                btn_excluir.Enabled = false;
+
+                btn_consultar.Enabled = true;
+                btn_inserir.Enabled = true;
+                btn_cancelar.Visible = false;
+                mkt_cpf.Enabled = true;
+
+                mkt_cpf.Focus();
+                Conectar.Close();
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show(erro.Message);
+            }
+        }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            LimparObjetos();
+
+            btn_alterar.Enabled = false;
+            btn_excluir.Enabled = false;
+
+            btn_consultar.Enabled = true;
+            btn_inserir.Enabled = true;
+
+            mkt_cpf.Enabled = true;
+            mkt_cpf.Focus();
+            Conectar.Close();
+            btn_cancelar.Visible = false;
         }
     }
 }
