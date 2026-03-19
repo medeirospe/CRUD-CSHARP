@@ -191,6 +191,7 @@ namespace projeto_crud_medeiros3i
 
                     btn_inserir.Enabled = true;
                     btn_consultar.Enabled = true;
+                    btn_cancelar.Visible = false;
 
                     mkt_cpf.Focus();
 
